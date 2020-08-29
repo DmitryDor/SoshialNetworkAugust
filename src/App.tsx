@@ -22,10 +22,11 @@ export type PropsType = {
 
 const App = (props: PropsType) => {
 
-return (
+
+    return (
 
         <div className="app-wrapper">
-            <Header/>
+            <Header />
             <Navbar/>
             <div className='app-wrapper-content'>
                 <Route path="/dialogs" render={() => <Dialogs dialogsPage={props.state.dialogsPage}
