@@ -1,41 +1,61 @@
 import React from 'react';
 
 
-import MyPosts from "./MyPosts";
-import {ActionsType, ProfilePageType} from "../../../redux/store";
+// import MyPosts from "./MyPosts";
+import {ActionsType, ProfilePageType, StateType} from "../../../redux/store";
 import {addPostAC, onPostChangeAC} from "../../../redux/profilePage-reducer";
-import {StoreType} from "../../../redux/redux-store";
 
-type PropsType = {
+import {connect} from "react-redux";
+import Dialogs from "../../Dialogs/Dialogs";
+import MyPosts from "./MyPosts";
+// import {StoreType} from "../../../redux/redux-store";
 
-    store: StoreType
-    /* profilePage: ProfilePageType
-     dispatch: (action: ActionsType) => void*/
+
+
+
+// /*export const MyPostsContainer = (props: PropsType) => {
+//
+//
+//     const addPost = () => {
+//         props.store.dispatch(addPostAC())
+//     }
+//
+//     const onPostChange = (newText: string) => {
+//         props.store.dispatch(onPostChangeAC(newText))
+//     }
+//
+//     /!* const onKeyPressHandler = (value: KeyboardEvent<HTMLTextAreaElement>) => {
+//          if(value.charCode === 13){
+//              addPost()
+//          }
+//      }*!/
+//
+//     return (
+//         <MyPosts updateNewPostText={onPostChange}
+//                  addPost={addPost}
+//                  profilePage={props.store.getState().profilePage}
+//         />
+//     );
+// }
+//
+// */
+
+let mapStateToProps = (state: StateType) => {
+    return {
+        profilePage: state.profilePage
+
+    }
 }
 
-
-export const MyPostsContainer = (props: PropsType) => {
-
-
-    const addPost = () => {
-        props.store.dispatch(addPostAC())
+ let mapDispatctToProps = (dispatch: (action: ActionsType) => void) => {
+    return {
+        updateNewPostText: (newText: string) => {
+            dispatch(onPostChangeAC(newText))
+        },
+        addPost: () => {
+            dispatch(addPostAC())
+        }
     }
-
-    const onPostChange = (newText: string) => {
-        props.store.dispatch(onPostChangeAC(newText))
-    }
-
-    /* const onKeyPressHandler = (value: KeyboardEvent<HTMLTextAreaElement>) => {
-         if(value.charCode === 13){
-             addPost()
-         }
-     }*/
-
-    return (
-        <MyPosts updateNewPostText={onPostChange}
-                 addPost={addPost}
-                 profilePage={props.store.getState().profilePage}
-        />
-    );
 }
+export const MyPostsContainer = connect(mapStateToProps, mapDispatctToProps)(MyPosts);
 
