@@ -1,4 +1,4 @@
-import {AddMessageActionType, UpdateNewMessageTextType} from "./state";
+import {AddMessageActionType, UpdateNewMessageTextType} from "./store";
 
 export type AddPostActionType = {
     type: 'ADD-POST'

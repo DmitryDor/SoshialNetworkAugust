@@ -1,4 +1,4 @@
-import {AddPostActionType, MessagesType, UpdateNewPostTextType} from "./state";
+import {AddPostActionType, MessagesType, UpdateNewPostTextType} from "./store";
 
 let initialeState = {
 
@@ -34,7 +34,7 @@ export type ActionsType =  AddPostActionType | UpdateNewPostTextType | AddMessag
 export type DialogsStateType = typeof initialeState
 
 
-export const dialogsPageReducer = (state: DialogsStateType, action: ActionsType) => {
+export const dialogsPageReducer = (state: DialogsStateType = initialeState, action: ActionsType) => {
     switch (action.type){
         case "ADD-MESSAGE":
             let newMessage: MessagesType = {id: "6", message: state.newMessageText};
