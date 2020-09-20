@@ -9,7 +9,6 @@ import {BrowserRouter} from "react-router-dom";
 import {Provider} from "react-redux";
 
 
-export let rerenderEntireTree = () => {
 
     ReactDOM.render(
         <BrowserRouter>
@@ -18,11 +17,9 @@ export let rerenderEntireTree = () => {
             </Provider>
         </BrowserRouter>, document.getElementById('root')
     );
-}
-
-rerenderEntireTree();
 
 
-store.subscribe(rerenderEntireTree);
+
+
 
 // serviceWorker.unregister();
