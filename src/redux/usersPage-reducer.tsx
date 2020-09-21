@@ -25,8 +25,9 @@ export type UserType = {
     location: LocationType
 }
 
-export type UsersType = {
-    users: Array<UserType>
+export type UsersType = Array<UserType>
+type InitialeStateType = {
+    [key: string]: UsersType
 }
 
 
@@ -64,7 +65,7 @@ let initialeState = {
             status: 'I am a student',
             location: {city: 'Kiev', country: 'Ukraine'}
         }
-    ]
+    ] as Array<UserType>
 
 }
 
@@ -74,7 +75,7 @@ export type ActionsType = FollowActionType | UnFollowActionType | SetUsersAction
 // export type UsersStateType<UsersType> = typeof initialeState
 export type UsersStateType = typeof initialeState
 
-export const usersReducer = (state = initialeState, action: ActionsType) => {
+export const usersReducer = (state: UsersStateType = initialeState, action: ActionsType): UsersStateType => {
     switch (action.type) {
         case "FOLLOW": {
             return {
@@ -100,7 +101,7 @@ export const usersReducer = (state = initialeState, action: ActionsType) => {
         }
         case 'SET-USERS': {
             return {
-                ...state, users: [...state.users,  action.users]
+                ...state, users: [...state.users,  ...action.users]
             }
         }
 

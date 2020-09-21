@@ -1,14 +1,14 @@
 import React from 'react'
 import {Users} from './Users'
 import {connect} from "react-redux";
-import {StateType, StoreType} from "../../redux/store";
 import {followAC, setUsersAC, unFollowAC, UsersType} from "../../redux/usersPage-reducer";
+import {RootState} from "../../redux/redux-store";
 
-let MapStateToProps = (store: any) => {
-    debugger
+
+let MapStateToProps = (state: RootState) => {
+
     return {
-
-        users: store.usersPage.users
+        users: state.usersPage.users
     }
 }
 let MapDispatchToProps = (dispatch: any) => {
@@ -21,7 +21,7 @@ let MapDispatchToProps = (dispatch: any) => {
         },
         setUsers: (users: UsersType) => {
             dispatch(setUsersAC(users))
-    }
+        }
     }
 }
 

@@ -1,4 +1,3 @@
-// import {AddMessageActionType, UpdateNewMessageTextType} from "./store";
 
 
 
@@ -36,7 +35,7 @@ export type ActionsType = AddPostActionType | UpdateNewPostTextType
 export type ProfileStateType = typeof initialeState
 
 
-export const profilePageReducer = (state: ProfileStateType = initialeState, action: ActionsType) => {
+export const profilePageReducer = (state: ProfileStateType = initialeState, action: ActionsType): ProfileStateType => {
     switch (action.type){
         case "ADD-POST": {
             let newPost: PostType = {id: '5', message: state.newPostText, likesCount: 0};

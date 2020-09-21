@@ -1,17 +1,10 @@
 import {combineReducers, createStore} from "redux";
 import {profilePageReducer} from "./profilePage-reducer";
 import {dialogsPageReducer} from "./dialogPage-reducer";
-import {ActionsType, StateType, SubscribeType} from "./store";
 import {usersReducer} from "./usersPage-reducer";
 
 
-/*export type StoreType = {
-    _state: StateType
-    getState: () => StateType
-    _callSubscriber: () => void
-    subscribe: SubscribeType
-    dispatch: (action: ActionsType) => void
-}*/
+export type RootState = ReturnType<typeof reducers>
 
 let reducers = combineReducers({
     profilePage: profilePageReducer,
@@ -20,6 +13,12 @@ let reducers = combineReducers({
 });
 
 export let store = createStore(reducers);
+
+
+
+
+
+
 
 // @ts-ignore
 window.store = store

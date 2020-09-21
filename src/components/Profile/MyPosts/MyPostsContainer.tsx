@@ -8,6 +8,7 @@ import {addPostAC, onPostChangeAC} from "../../../redux/profilePage-reducer";
 import {connect} from "react-redux";
 import Dialogs from "../../Dialogs/Dialogs";
 import MyPosts from "./MyPosts";
+import {RootState} from "../../../redux/redux-store";
 // import {StoreType} from "../../../redux/redux-store";
 
 
@@ -40,10 +41,9 @@ import MyPosts from "./MyPosts";
 //
 // */
 
-let mapStateToProps = (state: StateType) => {
+let mapStateToProps = (state: RootState) => {
     return {
         profilePage: state.profilePage
-
     }
 }
 

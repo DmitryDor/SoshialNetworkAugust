@@ -1,10 +1,10 @@
 import React from "react";
 
-import {ActionsType,  StateType} from "../../redux/store";
+import {ActionsType} from "../../redux/store";
 import {addMessageAC, onMessageChangeAC} from "../../redux/dialogPage-reducer";
 import Dialogs from "./Dialogs";
-// import {StoreType} from "../../redux/redux-store";
 import {connect} from "react-redux";
+import {RootState} from "../../redux/redux-store";
 
 
 /*type PropsType = {
@@ -40,7 +40,7 @@ import {connect} from "react-redux";
 //     );
 // }
 
-let mapStateToProps = (state: StateType) => {
+let mapStateToProps = (state: RootState) => {
     return {
         dialogsPage: state.dialogsPage
     }

@@ -6,7 +6,7 @@ type PropsType = {
     users: Array<UserType>
     follow: (id: string) => void
     unFollow: (id: string) => void
-    // setUsers: (users: UserType) => void
+     // setUsers: (users: UserType) => void
 
 }
 
