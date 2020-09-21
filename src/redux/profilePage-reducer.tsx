@@ -1,4 +1,7 @@
-import {AddMessageActionType, UpdateNewMessageTextType} from "./store";
+// import {AddMessageActionType, UpdateNewMessageTextType} from "./store";
+
+
+
 
 export type AddPostActionType = {
     type: 'ADD-POST'
@@ -27,7 +30,7 @@ let initialeState = {
 
 
 }
-export type ActionsType = AddPostActionType | UpdateNewPostTextType | AddMessageActionType | UpdateNewMessageTextType
+export type ActionsType = AddPostActionType | UpdateNewPostTextType
 
 
 export type ProfileStateType = typeof initialeState

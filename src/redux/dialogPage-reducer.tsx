@@ -1,4 +1,4 @@
-import {AddPostActionType, MessagesType, UpdateNewPostTextType} from "./store";
+// import {AddPostActionType, MessagesType, UpdateNewPostTextType} from "./store";
 
 let initialeState = {
 
@@ -28,8 +28,23 @@ export type UpdateNewMessageTextType = {
     newMessage: string
 }
 
-export type ActionsType = AddPostActionType | UpdateNewPostTextType | AddMessageActionType | UpdateNewMessageTextType
+export  type MessagesType =  {
+    id: string,
+    message: string
+}
 
+export type ActionsType =  AddMessageActionType | UpdateNewMessageTextType
+
+export type DialogsType = {
+    id: string,
+    name: string
+}
+
+export type DialogsPageType = {
+    dialogs: Array<DialogsType>,
+    messages: Array<MessagesType>,
+    newMessageText: string
+}
 
 export type DialogsStateType = typeof initialeState
 

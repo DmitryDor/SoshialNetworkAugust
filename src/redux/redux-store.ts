@@ -2,6 +2,7 @@ import {combineReducers, createStore} from "redux";
 import {profilePageReducer} from "./profilePage-reducer";
 import {dialogsPageReducer} from "./dialogPage-reducer";
 import {ActionsType, StateType, SubscribeType} from "./store";
+import {usersReducer} from "./usersPage-reducer";
 
 
 /*export type StoreType = {
@@ -14,7 +15,8 @@ import {ActionsType, StateType, SubscribeType} from "./store";
 
 let reducers = combineReducers({
     profilePage: profilePageReducer,
-    dialogsPage: dialogsPageReducer
+    dialogsPage: dialogsPageReducer,
+    usersPage: usersReducer
 });
 
 export let store = createStore(reducers);

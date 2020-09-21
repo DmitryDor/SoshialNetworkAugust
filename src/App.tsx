@@ -11,6 +11,7 @@ import Settings from "./components/Settings/Settings";
 // import {ActionsType, StateType} from "./redux/store";
 // import {StoreType} from "./redux/redux-store";
 import {DialogsContainer} from "./components/Dialogs/DialogsContainer";
+import {UsersContainer} from "./components/Users/UsersContainer";
 
 
 export type PropsType = {
@@ -35,8 +36,11 @@ const App = (props: PropsType) => {
             <div className='app-wrapper-content'>
                 <Route path="/dialogs" render={() => <DialogsContainer />}/>
                 <Route path="/profile" render={() => <Profile />}/>
+                <Route path="/users" render={() => <UsersContainer />}/>
 
-                {/* <Route path="/profile" render={() => <Profile profilePage={props.state.profilePage}
+                {/* <Route path="/profile" render={() => <Profile pr
+
+                ofilePage={props.state.profilePage}
                                                               dispatch={props.dispatch}
                 />}/>*/}
 
