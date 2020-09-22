@@ -1,8 +1,9 @@
 import React from 'react'
-import {Users} from './Users'
+// import {Users} from './Users'
 import {connect} from "react-redux";
 import {followAC, setUsersAC, unFollowAC,  UserType} from "../../redux/usersPage-reducer";
 import {RootState} from "../../redux/redux-store";
+import {Users} from "./UsersC";
 
 
 let MapStateToProps = (state: RootState) => {
