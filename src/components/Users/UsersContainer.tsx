@@ -1,5 +1,4 @@
 import React from 'react'
-// import {Users} from './Users'
 import {connect} from "react-redux";
 import {
     followAC,
@@ -10,7 +9,60 @@ import {
     UserType
 } from "../../redux/usersPage-reducer";
 import {RootState} from "../../redux/redux-store";
-import {Users} from "./UsersC";
+import axios from "axios";
+import {Users} from "./Users";
+
+type PropsType = {
+    users: Array<UserType>
+    follow: (id: number) => void
+    unFollow: (id: number) => void
+    setUsers: (users: Array<UserType>) => void
+    totalUsersCount: number
+    pageSize: number
+    currentPage: number
+    setCurrentPage: (p: number) => void
+    setTotalUsersCount: (totalCount: number) => void
+
+}
+
+export class UsersContainerClass extends React.Component<PropsType> {
+    constructor(props: PropsType) {
+        super(props);
+
+    }
+
+    componentDidMount() {
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${this.props.currentPage}&count=${this.props.pageSize}`).then(response => {
+            this.props.setUsers(response.data.items)
+            this.props.setTotalUsersCount(response.data.totalCount)
+        })
+    }
+
+
+    onPageChanged = (pageNumber: number) => {
+        this.props.setCurrentPage(pageNumber)
+        axios.get(`https://social-network.samuraijs.com/api/1.0/users?page=${pageNumber}&count=${this.props.pageSize}`).then(response => {
+            this.props.setUsers(response.data.items)
+        })
+    }
+
+    render() {
+
+        return <Users users={this.props.users}
+                      currentPage={this.props.currentPage}
+                      follow={this.props.follow}
+                      pageSize={this.props.pageSize}
+                      setCurrentPage={this.props.setCurrentPage}
+                      setTotalUsersCount={this.props.setTotalUsersCount}
+                      setUsers={this.props.setUsers}
+                      totalUsersCount={this.props.totalUsersCount}
+                      unFollow={this.props.unFollow}
+                      onPageChanged={this.onPageChanged}
+        />
+
+    }
+}
+
 
 
 let MapStateToProps = (state: RootState) => {
@@ -22,6 +74,7 @@ let MapStateToProps = (state: RootState) => {
         currentPage: state.usersPage.currentPage
     }
 }
+
 let MapDispatchToProps = (dispatch: any) => {
     return {
         follow: (userId: number) => {
@@ -43,6 +96,6 @@ let MapDispatchToProps = (dispatch: any) => {
 }
 
 
-export const UsersContainer = connect(MapStateToProps, MapDispatchToProps)(Users)
+export const UsersContainer = connect(MapStateToProps, MapDispatchToProps)(UsersContainerClass)
 
 
