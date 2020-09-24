@@ -11,6 +11,16 @@ export type SetUsersActionType = {
     users: UsersType
 }
 
+export type SetCurrentPageActionType = {
+    type: 'SET-CURRENT-PAGE'
+    currentPage: number
+}
+
+export type SetUsersTotalCountType = {
+    type: 'SET-USERS-TOTAL-COUNT'
+    totalUsersCounr: number
+}
+
 /*type LocationType = {
     city: string
     country: string
@@ -81,14 +91,17 @@ let initialeState = {
             status: 'I am a student',
             location: {city: 'Kiev', country: 'Ukraine'}
         }*/
-    ] as Array<UserType>
+    ] as Array<UserType>,
+    pageSize: 20,
+    totalUsersCount: 0,
+    currentPage: 1
 
 }
 
-export type ActionsType = FollowActionType | UnFollowActionType | SetUsersActionType
+export type ActionsType = FollowActionType | UnFollowActionType
+    | SetUsersActionType | SetCurrentPageActionType | SetUsersTotalCountType
 
 
-// export type UsersStateType<UsersType> = typeof initialeState
 export type UsersStateType = typeof initialeState
 
 export const usersReducer = (state: UsersStateType = initialeState, action: ActionsType): UsersStateType => {
@@ -117,7 +130,18 @@ export const usersReducer = (state: UsersStateType = initialeState, action: Acti
         }
         case 'SET-USERS': {
             return {
-                ...state, items: [...state.items, ...action.users]
+                ...state, items: action.users
+            }
+        }
+        case 'SET-CURRENT-PAGE': {
+            return {
+                ...state, currentPage: action.currentPage
+            }
+
+        }
+        case 'SET-USERS-TOTAL-COUNT': {
+            return {
+                ...state, totalUsersCount: action.totalUsersCounr
             }
         }
 
@@ -131,4 +155,8 @@ export const followAC = (userId: number): FollowActionType => ({type: 'FOLLOW', 
 
 export const unFollowAC = (userId: number): UnFollowActionType => ({type: 'UNFOLLOW', userId: userId})
 
-export const setUsersAC = (users: UsersType) => ({type: 'SET-USERS', users: users})
+export const setUsersAC = (users: UsersType): SetUsersActionType => ({type: 'SET-USERS', users: users})
+
+export const setCurrentPageAC = (currentPage: number): SetCurrentPageActionType => ({type: 'SET-CURRENT-PAGE', currentPage })
+
+export const setUsersTotalCountAC = (totalUsersCounr: number): SetUsersTotalCountType => ({type: 'SET-USERS-TOTAL-COUNT', totalUsersCounr })
