@@ -32,8 +32,8 @@ export type ToggleIsFetchingActionType = {
     country: string
 }*/
 export type PhotoType = {
-    "small": null | string
-    "large": null | string
+    small: null | string
+    large: null | string
 }
 
 export type UserType = {

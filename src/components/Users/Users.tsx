@@ -2,7 +2,8 @@ import React from "react";
 import {UserType} from "../../redux/usersPage-reducer";
 import styles from "./users.module.css";
 import userPhoto from "../../assets/images/users.png";
-// import axios from "axios";
+import {NavLink} from "react-router-dom";
+
 
 export type UsersPropsType = {
     users: Array<UserType>
@@ -26,24 +27,26 @@ export let Users = (props: UsersPropsType) => {
         pages.push(i)
     }
 
-    return  (
+    return (
         <div>
             <div>
                 {pages.map(p => {
                     return <span
                         className={props.currentPage === p ? styles.selectedPage : ''}
-                        onClick={() => props.onPageChanged(p) }
+                        onClick={() => props.onPageChanged(p)}
 
                     >{p}</span>
                 })}
             </div>
-            {                props.users.map(u => {
-                    return (
-                        <div key={u.id}>
+            {props.users.map(u => {
+                return (
+                    <div key={u.id}>
                             <span>
                                 <div>
+                                    <NavLink to={'/profile/' + u.id}>
                                     <img src={u.photos.small != null ? u.photos.small : userPhoto}
                                          className={styles.userFhoto}/>
+                                         </NavLink>
                                 </div>
                                 <div>
                                     {
@@ -54,7 +57,7 @@ export let Users = (props: UsersPropsType) => {
 
                                 </div>
                             </span>
-                            <span>
+                        <span>
                                 <span>
                                     <div>{u.name}</div>
                                     <div>{u.status}</div>
@@ -64,9 +67,9 @@ export let Users = (props: UsersPropsType) => {
                                     <div>'{'u.location.city'}'</div>
                                 </span>
                             </span>
-                        </div>
-                    )
-                })
+                    </div>
+                )
+            })
             }
         </div>
     )

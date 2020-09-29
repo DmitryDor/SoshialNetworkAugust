@@ -87,6 +87,7 @@ let MapStateToProps = (state: RootState) => {
     }
 }
 
+/*
 let MapDispatchToProps = (dispatch: any) => {
     return {
         follow: (userId: number) => {
@@ -109,8 +110,16 @@ let MapDispatchToProps = (dispatch: any) => {
         }
     }
 }
+*/
 
 
-export const UsersContainer = connect(MapStateToProps, MapDispatchToProps)(UsersContainerClass)
+export const UsersContainer = connect(MapStateToProps,{
+    follow: followAC,
+    unFollow: unFollowAC,
+    setUsers: setUsersAC,
+    setCurrentPage: setCurrentPageAC,
+    setTotalUsersCount: setUsersTotalCountAC,
+    toggleIsFetching: toggleIsFetchingAC
+})(UsersContainerClass)
 
 
