@@ -26,11 +26,13 @@ export type ToggleIsFetchingActionType = {
     isFetching: boolean
 
 }
+export type ToggleInFollowingProgressActionType = {
+    type: 'TOGGLE-IS-FOLLOWING-PROGRESS'
+    followingInProgress: boolean
 
-/*type LocationType = {
-    city: string
-    country: string
-}*/
+}
+
+
 export type PhotoType = {
     small: null | string
     large: null | string
@@ -54,17 +56,17 @@ let initialeState = {
     items: [
 
 
-     /*   {
-            "name": "Djoker",
-            "id": 11611,
-            "uniqueUrlName": null,
-            "photos": {
-                "small": null,
-                "large": null
-            },
-            "status": null,
-            "followed": false
-        }*/
+        /*   {
+               "name": "Djoker",
+               "id": 11611,
+               "uniqueUrlName": null,
+               "photos": {
+                   "small": null,
+                   "large": null
+               },
+               "status": null,
+               "followed": false
+           }*/
         /*{
             id: "1",
             photoURL: 'https://avatarko.ru/img/kartinka/5/devushka_4426.jpg',
@@ -101,12 +103,14 @@ let initialeState = {
     pageSize: 20,
     totalUsersCount: 0,
     currentPage: 1,
-    isFetching: true
+    isFetching: true,
+    followingInProgress: false
 
 }
 
 export type ActionsType = FollowActionType | UnFollowActionType
-    | SetUsersActionType | SetCurrentPageActionType | SetUsersTotalCountActionType | ToggleIsFetchingActionType
+    | SetUsersActionType | SetCurrentPageActionType | SetUsersTotalCountActionType | ToggleIsFetchingActionType |
+    ToggleInFollowingProgressActionType
 
 
 export type UsersStateType = typeof initialeState
@@ -157,6 +161,13 @@ export const usersReducer = (state: UsersStateType = initialeState, action: Acti
             }
         }
 
+        case "TOGGLE-IS-FOLLOWING-PROGRESS": {
+            return {
+                ...state, followingInProgress: action.followingInProgress
+            }
+        }
+
+
         default:
             return state
     }
@@ -169,9 +180,24 @@ export const unFollowAC = (userId: number): UnFollowActionType => ({type: 'UNFOL
 
 export const setUsersAC = (users: UsersType): SetUsersActionType => ({type: 'SET-USERS', users: users})
 
-export const setCurrentPageAC = (currentPage: number): SetCurrentPageActionType => ({type: 'SET-CURRENT-PAGE', currentPage })
+export const setCurrentPageAC = (currentPage: number): SetCurrentPageActionType => ({
+    type: 'SET-CURRENT-PAGE',
+    currentPage
+})
 
-export const setUsersTotalCountAC = (totalUsersCounr: number): SetUsersTotalCountActionType => ({type: 'SET-USERS-TOTAL-COUNT', totalUsersCounr })
+export const setUsersTotalCountAC = (totalUsersCounr: number): SetUsersTotalCountActionType => ({
+    type: 'SET-USERS-TOTAL-COUNT',
+    totalUsersCounr
+})
 
-export const toggleIsFetchingAC = (isFetching: boolean): ToggleIsFetchingActionType => ({type: 'TOGGLE-IS-FETCHING', isFetching })
+export const toggleIsFetchingAC = (isFetching: boolean): ToggleIsFetchingActionType => ({
+    type: 'TOGGLE-IS-FETCHING', isFetching
+})
+
+export const toggleFollowingProgressAC = (followingInProgress: boolean): ToggleInFollowingProgressActionType => ({
+    type: 'TOGGLE-IS-FOLLOWING-PROGRESS',
+    followingInProgress
+})
+
+
 
