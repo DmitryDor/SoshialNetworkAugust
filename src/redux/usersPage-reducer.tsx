@@ -1,3 +1,5 @@
+import {followUser, getUsers, unfollowUser} from "../API/API";
+
 export type FollowActionType = {
     type: 'FOLLOW'
     userId: number
@@ -28,7 +30,8 @@ export type ToggleIsFetchingActionType = {
 }
 export type ToggleInFollowingProgressActionType = {
     type: 'TOGGLE-IS-FOLLOWING-PROGRESS'
-    followingInProgress: boolean
+    isFetching: boolean
+    userId: number
 
 }
 
@@ -53,58 +56,12 @@ export type UsersType = Array<UserType>
 
 
 let initialeState = {
-    items: [
-
-
-        /*   {
-               "name": "Djoker",
-               "id": 11611,
-               "uniqueUrlName": null,
-               "photos": {
-                   "small": null,
-                   "large": null
-               },
-               "status": null,
-               "followed": false
-           }*/
-        /*{
-            id: "1",
-            photoURL: 'https://avatarko.ru/img/kartinka/5/devushka_4426.jpg',
-            followed: false,
-            fullName: "Juliya",
-            status: 'I am a hungre',
-            location: {city: 'Minsk', country: 'Belarus'}
-        },
-        {
-            id: "2",
-            photoURL: 'https://avatarko.ru/img/kartinka/5/devushka_4426.jpg',
-            followed: true,
-            fullName: "Dimon",
-            status: 'I am a good man',
-            location: {city: 'Gomel', country: 'Belarus'}
-        },
-        {
-            id: "3",
-            photoURL: 'https://avatarko.ru/img/kartinka/5/devushka_4426.jpg',
-            followed: false,
-            fullName: "Kolya",
-            status: 'I am a happy',
-            location: {city: 'Moskow', country: 'Russia'}
-        },
-        {
-            id: "4",
-            photoURL: 'https://avatarko.ru/img/kartinka/5/devushka_4426.jpg',
-            followed: false,
-            fullName: "Andrey",
-            status: 'I am a student',
-            location: {city: 'Kiev', country: 'Ukraine'}
-        }*/
-    ] as Array<UserType>,
+    items: [] as Array<UserType>,
     pageSize: 20,
     totalUsersCount: 0,
     currentPage: 1,
     isFetching: true,
-    followingInProgress: false
+    followingInProgress: [] as number []
 
 }
 
@@ -163,7 +120,10 @@ export const usersReducer = (state: UsersStateType = initialeState, action: Acti
 
         case "TOGGLE-IS-FOLLOWING-PROGRESS": {
             return {
-                ...state, followingInProgress: action.followingInProgress
+                ...state,
+                followingInProgress: action.isFetching
+                    ? [...state.followingInProgress, action.userId]
+                    : state.followingInProgress?.filter(id => id !== action.userId)
             }
         }
 
@@ -194,10 +154,51 @@ export const toggleIsFetchingAC = (isFetching: boolean): ToggleIsFetchingActionT
     type: 'TOGGLE-IS-FETCHING', isFetching
 })
 
-export const toggleFollowingProgressAC = (followingInProgress: boolean): ToggleInFollowingProgressActionType => ({
+export const toggleFollowingProgressAC = (isFetching: boolean, userId: number): ToggleInFollowingProgressActionType => ({
     type: 'TOGGLE-IS-FOLLOWING-PROGRESS',
-    followingInProgress
+    isFetching, userId
 })
 
+export const getUsersThunkCreater = (currentPage: number, pageSize: number) => {
+    return (dispatch: any) => {
 
+        dispatch(toggleIsFetchingAC(true))
+        getUsers(currentPage, pageSize).then(data => {
+            dispatch(toggleIsFetchingAC(false))
+            dispatch(setUsersAC(data.items))
+            dispatch(setUsersTotalCountAC(data.totalCount))
+
+        })
+    }
+}
+
+
+export const followThunkCreater = (id: number) => {
+
+    return (dispatch: any) => {
+
+        dispatch(toggleFollowingProgressAC(true, id))
+
+        followUser(id).then(data => {
+            if (data.resultCode === 0) {
+                dispatch(followAC(id))
+            }
+            dispatch(toggleFollowingProgressAC(false, id))
+        })
+    }
+}
+
+export const unfollowThunkCreater = (id: number) => {
+
+    return (dispatch: any) => {
+
+        dispatch(toggleFollowingProgressAC(true, id))
+        unfollowUser(id).then(data => {
+            if (data.resultCode === 0) {
+                dispatch(unFollowAC(id))
+            }
+            dispatch(toggleFollowingProgressAC(false, id))
+        })
+    }
+}
 
