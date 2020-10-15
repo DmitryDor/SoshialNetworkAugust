@@ -1,16 +1,17 @@
 import React from 'react';
-import ProfileInfo from "./ProfileInfo/ProfileInfo";
-import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
+// import ProfileInfo from "./ProfileInfo/ProfileInfo";
+// import {MyPostsContainer} from "./MyPosts/MyPostsContainer";
 import {RootState} from "../../redux/redux-store";
 import Profile from "./Profile";
-import axios from "axios";
 import {connect} from "react-redux";
-import {ProfileType, SetUserProfileAC} from "../../redux/profilePage-reducer";
+import {getUserProfileThunkCreater, ProfileType, SetUserProfileAC} from "../../redux/profilePage-reducer";
 import {Preloader} from "../Preloader/Preloader";
 import {withRouter, RouteComponentProps} from 'react-router-dom';
+// import {getProfile} from "../../API/API";
 
 type  OwnPropsType = {
-    setUserProfile: (profile: ProfileType) => void
+    // userId: any
+    // setUserProfile: (profile: ProfileType) => void
 }
 
 type MapStatePropsType = {
@@ -18,7 +19,8 @@ type MapStatePropsType = {
 }
 
 type MapDispatchPropsType = {
-    setUserProfile: (profile: ProfileType) => void
+    // setUserProfile: (profile: ProfileType) => void
+    getUserProfile: (userId: any) => void
 }
 
 type PropsType = OwnPropsType & MapStatePropsType & MapDispatchPropsType
@@ -36,11 +38,13 @@ class ProfileContainer extends React.Component<CommonPropsType> {
         if (!userId) {
             userId = '2'
         }
-        axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)
-            .then(response => {
+        this.props.getUserProfile(userId)
+        /* axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)*/
 
-                this.props.setUserProfile(response.data)
-            })
+        /*getProfile(userId) .then(response => {
+
+             this.props.setUserProfile(response.data)
+         })*/
     }
 
     render() {
@@ -64,4 +68,7 @@ let mapStateToProps = (state: RootState): MapStatePropsType => {
 let WithUrlDataContainerComponent = withRouter(ProfileContainer)
 
 
-export default connect(mapStateToProps, {setUserProfile: SetUserProfileAC})(WithUrlDataContainerComponent);
+export default connect(mapStateToProps, {
+    // setUserProfile: SetUserProfileAC,
+    getUserProfile: getUserProfileThunkCreater
+})(WithUrlDataContainerComponent);

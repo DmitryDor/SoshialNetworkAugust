@@ -1,3 +1,6 @@
+import {Dispatch} from "redux";
+import {getMyData} from "../API/API";
+
 export type DataType = {
     id: null | number
     email: null | string
@@ -50,3 +53,14 @@ export const setAothUserDataAC = (id: null | number, email: null | string, login
     data: {id, email, login}
 })
 
+export const getAothUserThunkCreater = () => {
+    return (dispatch: Dispatch) => {
+        getMyData().then(data => {
+            if (data.resultCode === 0) {
+
+                let {id, email, login} = data.data
+                dispatch(setAothUserDataAC(id, email, login))
+            }
+        })
+    }
+}

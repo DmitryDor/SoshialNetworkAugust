@@ -1,4 +1,6 @@
 import {PhotoType} from "./usersPage-reducer";
+import {Dispatch} from "redux";
+import {getProfile} from "../API/API";
 
 
 export type AddPostActionType = {
@@ -109,3 +111,32 @@ export const onPostChangeAC = (newText: string): UpdateNewPostTextType =>
 
 export const SetUserProfileAC = (profile: ProfileType): SetUserProfileActionType =>
     ({type:"SET-USER-PROFILE", profile})
+
+export const getUserProfileThunkCreater = (userId: any) => {
+    return (dispatch: Dispatch) => {
+        getProfile(userId) .then(response => {
+
+            dispatch(SetUserProfileAC(response.data))
+        })
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -29,3 +29,7 @@ export const followUser = (id: number) => {
     return instance.post(`follow/${id}`).then(response => response.data)
 }
 
+export const getProfile = (userID: string) => {
+    return  instance.get(`profile/${userID}`)
+}
+

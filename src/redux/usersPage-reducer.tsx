@@ -1,4 +1,5 @@
 import {followUser, getUsers, unfollowUser} from "../API/API";
+import {Dispatch} from "redux";
 
 export type FollowActionType = {
     type: 'FOLLOW'
@@ -190,7 +191,7 @@ export const followThunkCreater = (id: number) => {
 
 export const unfollowThunkCreater = (id: number) => {
 
-    return (dispatch: any) => {
+    return (dispatch: Dispatch) => {
 
         dispatch(toggleFollowingProgressAC(true, id))
         unfollowUser(id).then(data => {
