@@ -120,6 +120,7 @@ export const usersReducer = (state: UsersStateType = initialeState, action: Acti
         }
 
         case "TOGGLE-IS-FOLLOWING-PROGRESS": {
+
             return {
                 ...state,
                 followingInProgress: action.isFetching
@@ -176,7 +177,7 @@ export const getUsersThunkCreater = (currentPage: number, pageSize: number) => {
 
 export const followThunkCreater = (id: number) => {
 
-    return (dispatch: any) => {
+    return (dispatch: Dispatch) => {
 
         dispatch(toggleFollowingProgressAC(true, id))
 

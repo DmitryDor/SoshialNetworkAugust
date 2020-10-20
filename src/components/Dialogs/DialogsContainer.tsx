@@ -5,6 +5,7 @@ import {addMessageAC, onMessageChangeAC} from "../../redux/dialogPage-reducer";
 import Dialogs from "./Dialogs";
 import {connect} from "react-redux";
 import {RootState} from "../../redux/redux-store";
+import {withAuthRedirect} from "../../hok/WihtAuthRedirect";
 
 
 /*type PropsType = {
@@ -40,9 +41,12 @@ import {RootState} from "../../redux/redux-store";
 //     );
 // }
 
+let AuthRedirectComponent = withAuthRedirect(Dialogs)
+
 let mapStateToProps = (state: RootState) => {
     return {
-        dialogsPage: state.dialogsPage
+        dialogsPage: state.dialogsPage,
+        // isAuth: state.auth.isAuth
     }
 }
 let mapDispatctToProps = (dispatch: (action: ActionsType) => void) => {
@@ -56,4 +60,4 @@ let mapDispatctToProps = (dispatch: (action: ActionsType) => void) => {
 
 }
 }
-export const DialogsContainer = connect(mapStateToProps, mapDispatctToProps)(Dialogs);
+export const DialogsContainer = connect(mapStateToProps, mapDispatctToProps)(AuthRedirectComponent);

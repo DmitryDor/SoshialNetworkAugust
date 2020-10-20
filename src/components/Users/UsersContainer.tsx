@@ -90,7 +90,6 @@ export class UsersContainerClass extends React.Component<PropsType> {
                    followThunk={this.props.followThunk}
                    unfollowThunk={this.props.unfollowThunk}
 
-
             />
         </>
 
