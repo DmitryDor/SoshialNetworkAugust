@@ -8,6 +8,7 @@ import {getUserProfileThunkCreater, ProfileType, SetUserProfileAC} from "../../r
 import {Preloader} from "../Preloader/Preloader";
 import {withRouter, RouteComponentProps, Redirect} from 'react-router-dom';
 import {withAuthRedirect} from "../../hok/WihtAuthRedirect";
+import {compose} from "redux";
 // import {getProfile} from "../../API/API";
 
 type  OwnPropsType = {
@@ -64,12 +65,6 @@ class ProfileContainer extends React.Component<CommonPropsType> {
 }
 
 
-let AuthRedirectComponent = withAuthRedirect(ProfileContainer)
-
-
-
-
-
 let mapStateToProps = (state: RootState) => ({
 
         profile: state.profilePage.profile
@@ -77,10 +72,23 @@ let mapStateToProps = (state: RootState) => ({
 
 })
 
-let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent)
+/*let AuthRedirectComponent = withAuthRedirect(ProfileContainer)
 
+let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent)*/
 
+export default compose<React.ComponentClass>(
+    connect(mapStateToProps, {
+        // setUserProfile: SetUserProfileAC,
+        getUserProfile: getUserProfileThunkCreater
+    }),
+    withRouter,
+    withAuthRedirect
+)(ProfileContainer)
+
+/*
 export default connect(mapStateToProps, {
     // setUserProfile: SetUserProfileAC,
     getUserProfile: getUserProfileThunkCreater
 })(WithUrlDataContainerComponent);
+*/
+
