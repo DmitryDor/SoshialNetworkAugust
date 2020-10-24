@@ -82,7 +82,7 @@ export default compose<React.ComponentClass>(
         getUserProfile: getUserProfileThunkCreater
     }),
     withRouter,
-    withAuthRedirect
+    // withAuthRedirect
 )(ProfileContainer)
 
 /*
