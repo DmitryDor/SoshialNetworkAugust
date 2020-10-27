@@ -4,7 +4,12 @@ import React from 'react';
 import {RootState} from "../../redux/redux-store";
 import Profile from "./Profile";
 import {connect} from "react-redux";
-import {getUserProfileThunkCreater, ProfileType, SetUserProfileAC} from "../../redux/profilePage-reducer";
+import {
+    getStatusThunkCreater,
+    getUserProfileThunkCreater,
+    ProfileType,
+    SetUserProfileAC, updateStatusThunkCreater
+} from "../../redux/profilePage-reducer";
 import {Preloader} from "../Preloader/Preloader";
 import {withRouter, RouteComponentProps, Redirect} from 'react-router-dom';
 import {withAuthRedirect} from "../../hok/WihtAuthRedirect";
@@ -24,6 +29,9 @@ type MapStatePropsType = {
 type MapDispatchPropsType = {
     // setUserProfile: (profile: ProfileType) => void
     getUserProfile: (userId: any) => void
+    getStatus: (userId: any) => void
+    updateStatus: (status: string) => void
+    status: string
 }
 
 type PropsType = OwnPropsType & MapStatePropsType & MapDispatchPropsType
@@ -42,6 +50,9 @@ class ProfileContainer extends React.Component<CommonPropsType> {
             userId = '2'
         }
         this.props.getUserProfile(userId)
+        this.props.getStatus(userId)
+
+
         /* axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)*/
 
         /*getProfile(userId) .then(response => {
@@ -53,11 +64,10 @@ class ProfileContainer extends React.Component<CommonPropsType> {
     render() {
 
 
-
         return (
             <div>
                 {this.props.profile
-                    ? <Profile profile={this.props.profile} />
+                    ? <Profile profile={this.props.profile} status={this.props.status} updateStatus={this.props.updateStatus}/>
                     : <Preloader/>}
             </div>
         );
@@ -67,8 +77,9 @@ class ProfileContainer extends React.Component<CommonPropsType> {
 
 let mapStateToProps = (state: RootState) => ({
 
-        profile: state.profilePage.profile
-        // isAuth: state.auth.isAuth
+    profile: state.profilePage.profile,
+    status: state.profilePage.status
+    // isAuth: state.auth.isAuth
 
 })
 
@@ -79,7 +90,9 @@ let WithUrlDataContainerComponent = withRouter(AuthRedirectComponent)*/
 export default compose<React.ComponentClass>(
     connect(mapStateToProps, {
         // setUserProfile: SetUserProfileAC,
-        getUserProfile: getUserProfileThunkCreater
+        getUserProfile: getUserProfileThunkCreater,
+        getStatus: getStatusThunkCreater,
+        updateStatus: updateStatusThunkCreater,
     }),
     withRouter,
     // withAuthRedirect
