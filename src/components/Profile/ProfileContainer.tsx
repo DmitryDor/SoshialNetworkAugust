@@ -23,6 +23,7 @@ type  OwnPropsType = {
 
 type MapStatePropsType = {
     profile: ProfileType | null
+    status: string
     // isAuth: boolean
 }
 
@@ -32,6 +33,7 @@ type MapDispatchPropsType = {
     getStatus: (userId: any) => void
     updateStatus: (status: string) => void
     status: string
+
 }
 
 type PropsType = OwnPropsType & MapStatePropsType & MapDispatchPropsType
@@ -51,23 +53,29 @@ class ProfileContainer extends React.Component<CommonPropsType> {
         }
         this.props.getUserProfile(userId)
         this.props.getStatus(userId)
+    }
 
+    componentDidUpdate(prevProps: Readonly<CommonPropsType>, prevState: Readonly<{}>, snapshot?: any) {
+        /* let a = this.props
+         let b = this.state*/
 
-        /* axios.get(`https://social-network.samuraijs.com/api/1.0/profile/${userId}`)*/
-
-        /*getProfile(userId) .then(response => {
-
-             this.props.setUserProfile(response.data)
-         })*/
+        if (prevProps.status !== this.props.status) {
+            this.setState({
+                status: this.props.status
+            })
+        }
+        console.log('componentDidUpdate')
     }
 
     render() {
+        console.log('render')
 
 
         return (
             <div>
                 {this.props.profile
-                    ? <Profile profile={this.props.profile} status={this.props.status} updateStatus={this.props.updateStatus}/>
+                    ? <Profile profile={this.props.profile} status={this.props.status}
+                               updateStatus={this.props.updateStatus}/>
                     : <Preloader/>}
             </div>
         );
