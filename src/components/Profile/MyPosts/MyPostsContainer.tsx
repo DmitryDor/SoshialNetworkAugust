@@ -1,15 +1,9 @@
 import React from 'react';
-
-
-// import MyPosts from "./MyPosts";
-import {ActionsType, ProfilePageType, StateType} from "../../../redux/store";
-import {addPostAC, onPostChangeAC} from "../../../redux/profilePage-reducer";
-
+import {ActionsType} from "../../../redux/store";
+import {addPostAC} from "../../../redux/profilePage-reducer";
 import {connect} from "react-redux";
-import Dialogs from "../../Dialogs/Dialogs";
 import MyPosts from "./MyPosts";
 import {RootState} from "../../../redux/redux-store";
-// import {StoreType} from "../../../redux/redux-store";
 
 
 
@@ -49,11 +43,9 @@ let mapStateToProps = (state: RootState) => {
 
  let mapDispatctToProps = (dispatch: (action: ActionsType) => void) => {
     return {
-        updateNewPostText: (newText: string) => {
-            dispatch(onPostChangeAC(newText))
-        },
-        addPost: () => {
-            dispatch(addPostAC())
+
+        addPost: (addNewPost: string) => {
+            dispatch(addPostAC(addNewPost))
         }
     }
 }

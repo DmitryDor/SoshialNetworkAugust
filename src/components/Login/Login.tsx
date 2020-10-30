@@ -9,6 +9,7 @@ type FormDataType = {
 
 }
 export const Login = () => {
+
     const onSubmit = (formData: FormDataType) => {
         console.log(formData)
     }
@@ -20,7 +21,6 @@ export const Login = () => {
         </div>
     )
 }
-
 
 
 const LoginForm: React.FC<InjectedFormProps<FormDataType>> = (props) => {

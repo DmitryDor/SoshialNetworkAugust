@@ -5,12 +5,10 @@ import {getProfile, profileAPI} from "../API/API";
 
 export type AddPostActionType = {
     type: 'ADD-POST'
+    addNewPost: string
 }
 
-export type UpdateNewPostTextType = {
-    type: 'UPDATE-NEW-POST-TEXT'
-    newPost: string
-}
+
 
 export type SetUserProfileActionType = {
     type: 'SET-USER-PROFILE'
@@ -61,15 +59,15 @@ let initialeState = {
         {id: "5", message: "New year", likesCount: 5},
         {id: "6", message: "Bah", likesCount: 18}
     ],
-    newPostText: '',
     profile: null as null | ProfileType,
+    // newPostText: '',
     status: ''
 }
 
 export type ActionsType = SetStatusActionType
     | AddPostActionType
     | SetUserProfileActionType
-    | UpdateNewPostTextType
+
 
 
 export type ProfileStateType = typeof initialeState
@@ -78,10 +76,10 @@ export type ProfileStateType = typeof initialeState
 export const profilePageReducer = (state: ProfileStateType = initialeState, action: ActionsType): ProfileStateType => {
     switch (action.type) {
         case "ADD-POST": {
-            let newPost: PostType = {id: '5', message: state.newPostText, likesCount: 0};
+            let newPost: PostType = {id: '5', message: action.addNewPost, likesCount: 0};
             return {
                 ...state,
-                newPostText: '',
+
                 posts: [...state.posts, newPost]
             }
             // return stateCopy
@@ -96,12 +94,7 @@ export const profilePageReducer = (state: ProfileStateType = initialeState, acti
                 profile: action.profile
             }
         }
-        case "UPDATE-NEW-POST-TEXT": {
-            return {
-                ...state,
-                newPostText: action.newPost
-            }
-        }
+
         case "SET-STATUS" : {
             return {
                 ...state,
@@ -115,10 +108,9 @@ export const profilePageReducer = (state: ProfileStateType = initialeState, acti
 
 }
 
-export const addPostAC = (): AddPostActionType => ({type: 'ADD-POST'})
+export const addPostAC = (addNewPost: string): AddPostActionType => ({type: 'ADD-POST', addNewPost})
 
-export const onPostChangeAC = (newText: string): UpdateNewPostTextType =>
-    ({type: 'UPDATE-NEW-POST-TEXT', newPost: newText})
+
 
 export const SetUserProfileAC = (profile: ProfileType): SetUserProfileActionType =>
     ({type: "SET-USER-PROFILE", profile})

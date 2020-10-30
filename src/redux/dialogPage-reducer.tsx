@@ -16,23 +16,25 @@ let initialeState = {
         {id: "4", message: "I'm happy"},
         {id: "5", message: "Happy new year"}
     ],
-    newMessageText: ''
+    // newMessageText: ''
 }
 
 export type AddMessageActionType = {
     type: 'ADD-MESSAGE'
+    newMessageText: string
 }
-export type UpdateNewMessageTextType = {
+/*export type UpdateNewMessageTextType = {
     type: 'UPDATE-NEW-MESSAGE-TEXT'
     newMessage: string
-}
+}*/
 
 export  type MessagesType =  {
     id: string,
     message: string
 }
 
-export type ActionsType =  AddMessageActionType | UpdateNewMessageTextType
+export type ActionsType =  AddMessageActionType
+    // | UpdateNewMessageTextType
 
 export type DialogsType = {
     id: string,
@@ -51,11 +53,11 @@ export type DialogsStateType = typeof initialeState
 export const dialogsPageReducer = (state: DialogsStateType = initialeState, action: ActionsType): DialogsStateType => {
     switch (action.type) {
         case "ADD-MESSAGE": {
-            let newMessage: MessagesType = {id: "6", message: state.newMessageText};
+            let newMessage: MessagesType = {id: "6", message: action.newMessageText};
             return {
                 ...state,
                 messages: [...state.messages, newMessage],
-                newMessageText: ''
+
             }
             // return stateCopy
 
@@ -63,7 +65,7 @@ export const dialogsPageReducer = (state: DialogsStateType = initialeState, acti
             // stateCopy.messages.push(newMessage)
             // stateCopy.newMessageText = '';
         }
-        case "UPDATE-NEW-MESSAGE-TEXT": {
+      /*  case "UPDATE-NEW-MESSAGE-TEXT": {
             return  {
                 ...state,
                 newMessageText: action.newMessage
@@ -71,13 +73,14 @@ export const dialogsPageReducer = (state: DialogsStateType = initialeState, acti
             // return stateCopy
             // stateCopy.newMessageText = action.newMessage
 
-        }
+        }*/
         default:
             return state
     }
 }
 
-export const addMessageAC = (): AddMessageActionType => ({type: 'ADD-MESSAGE'})
+export const addMessageAC = (newMessageText: string): AddMessageActionType => ({type: 'ADD-MESSAGE', newMessageText})
 
+/*
 export const onMessageChangeAC = (newMessage: string): UpdateNewMessageTextType =>
-    ({type: 'UPDATE-NEW-MESSAGE-TEXT', newMessage: newMessage})
+    ({type: 'UPDATE-NEW-MESSAGE-TEXT', newMessage})*/
