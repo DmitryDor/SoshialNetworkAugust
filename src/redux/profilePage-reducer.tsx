@@ -60,7 +60,7 @@ let initialeState = {
         {id: "6", message: "Bah", likesCount: 18}
     ],
     profile: null as null | ProfileType,
-    // newPostText: '',
+    newPostText: '',
     status: ''
 }
 
