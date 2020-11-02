@@ -2,9 +2,8 @@ import React from 'react';
 import Header from "./Header";
 import {connect} from "react-redux";
 
-import {getAothUserThunkCreater, setAothUserDataAC} from "../../redux/auth-reducer";
+import {getAothUserThunkCreater} from "../../redux/auth-reducer";
 import {RootState} from "../../redux/redux-store";
-import {getMyData} from "../../API/API";
 
 
 type  OwnPropsType = {
@@ -19,6 +18,7 @@ type MapStateToPropsType = {
 type MapDispatchPropsType = {
     // setAuthUserData: (id: null | number, email: null | string, login: string | null) => void
     getAothUser: () => void
+
 }
 
 type PropsType = MapStateToPropsType & MapDispatchPropsType & OwnPropsType
@@ -49,11 +49,14 @@ const MapStateToProps = (state: RootState) => {
     return {
         isAuth: state.auth.isAuth,
         login: state.auth.data.login
+
+
     }
 }
 
 
 export default connect(MapStateToProps, {
     // setAuthUserData: setAothUserDataAC,
-    getAothUser: getAothUserThunkCreater
+    getAothUser: getAothUserThunkCreater,
+
 })(HeaderContainer)
